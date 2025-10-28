@@ -3,6 +3,7 @@ package org.example.view;
 import org.example.model.Livro;
 import org.example.service.Service;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BibliotecaView {
@@ -30,10 +31,10 @@ public class BibliotecaView {
 
         switch (opcao){
             case 1 ->{
-                cadastrarUsuario();
+                informacoesLivro();
             }
             case 2 ->{
-
+                consultaLivrosCadastrados();
             }
             case 3 ->{
 
@@ -52,7 +53,7 @@ public class BibliotecaView {
         }
     }
 
-    public static void cadastrarUsuario(){
+    public static void informacoesLivro(){
         System.out.println("----CADASTRAR LIVRO----");
         System.out.println("Digite o título do livro: ");
         String titulo = leia.nextLine();
@@ -63,7 +64,17 @@ public class BibliotecaView {
         leia.nextLine();
 
         var livro = new Livro(titulo, autor, ano);
-        Service.cadastrarLivro(livro);
+
+        try{
+            Service.cadastrarLivro(livro);
+        }catch(SQLException erro){
+            erro.printStackTrace();
+        }
+
+    }
+
+    public static void consultaLivrosCadastrados(){
+
     }
 
 }
